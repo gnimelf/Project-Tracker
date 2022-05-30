@@ -1,0 +1,14 @@
+
+
+#hero {
+    
+    height: 200px;
+    background-image: url("../images/hero.jpg");
+    background-repeat:no-repeat;
+    background-position: 50% 60%;
+    background-size: 100%;
+    background-color: aqua;
+    color: white;
+    text-align: center;
+    padding: 50px;
+}
