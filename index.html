@@ -53,17 +53,18 @@
                                                 <option>C#</option>
                                             </select>
                                             <label for="hourly-wage">Hourly Wage</label>
-                                            <input type="text" id="hourly-wage">
+                                            <input type="number" id="hourly-wage" min:1>
                                             <p>Due Date: <input type="text" id="datepicker"></p>
                                             <label for="days-left">Days until due:</label>
-                                            <input id="days-left" type="text" disabled value="0"><br>
+                                            <input id="days-left" type="number" disabled value="0"><br>
                                             <label for="est-total-earned">Est. Total Earned: $</label>
-                                            <input id="est-total-earned" type="text" disabled value="0">
+                                            <input id="est-total-earned" type="number" disabled value="0">
                                         </section>
                                         <section class="modal-footer">
                                             <button type="button" class="btn btn-secondary"
                                                 data-bs-dismiss="modal">Close</button>
-                                            <button type="submit" data-bs-dismiss="modal" class="btn btn-primary btn-success">Save changes</button>
+                                            <button type="submit" data-bs-dismiss="modal"
+                                                class="btn btn-primary btn-success">Save changes</button>
                                         </section>
                                     </fieldset>
                                 </form>
@@ -72,6 +73,19 @@
                     </section>
                 </section>
             </section>
+        </section>
+        <section>
+            <table id="project-table">
+                <tr>
+                    <th>Project Name</th>
+                    <th>Project Type</th>
+                    <th>Hour Wage</th>
+                    <th>Due Date</th>
+                    <th>Days left</th>
+                    <th>Estimated Total Earned</th>
+                </tr>
+                
+            </table>
         </section>
     </main>
     <footer>

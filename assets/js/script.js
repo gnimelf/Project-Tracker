@@ -4,6 +4,7 @@ var daysLeftEl = $("#days-left");
 var hourlyWageEl = $("#hourly-wage")
 var estTotalEarnedEl = $("#est-total-earned");
 var newProjEl = $("#new-proj");
+var projectTable = $("#project-table");
 $("#datepicker").datepicker();
 $("#project-type").selectmenu();
 
@@ -49,6 +50,7 @@ function calcEstTotalEarned (){
     return
 }
 
+// Create proj obj and add it to project list
 function submitInfo(event){
     // Create new ProjObj and push to projectList array
     event.stopPropagation();
@@ -61,4 +63,23 @@ function submitInfo(event){
     newProj.est_total_earned = event.currentTarget[6].value;
     projectList.push(newProj);
     console.log(projectList);
+    printProjectData();
+}
+
+function printProjectData(){
+    
+    for (var i=0; i < projectList.length; i++) {
+        
+        var tableRow = `
+        <tr>
+        <td> ${projectList[i].name}</td>
+        <td> ${projectList[i].type}</td>
+        <td> ${projectList[i].wage}</td>
+        <td> ${projectList[i].due_date}</td>
+        <td> ${projectList[i].day_left}</td>
+        <td> $ ${projectList[i].est_total_earned}</td>
+        </tr>
+        `
+        projectTable[0].innerHTML = projectTable[0].innerHTML + tableRow;
+    }
 }

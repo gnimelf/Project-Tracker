@@ -5,6 +5,19 @@ body{
     align-items: center;
 }
 
+main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+th {
+    padding: 0 10px;
+}
+td {
+    padding: 0 10px;
+}
+
 .modal-body form{
     padding: 0 50px;
     text-align: right;
@@ -23,7 +36,6 @@ body{
     margin-right: 30px;
 }
 
-
 #project-type-button {
     margin: 0;
 }
@@ -41,4 +53,6 @@ body{
     padding: 50px;
 }
 
-
+#project-table{
+    margin-top: 20px;
+}
