@@ -19,6 +19,16 @@ body{
     z-index: 2001;
 }
 
+#days-left{
+    display: inline;
+    margin-left: 180px ;
+}
+
+#est-total-earned {
+    display: inline;
+    margin-left: 178px;
+}
+
 #project-type-button {
     margin: 0;
 }
