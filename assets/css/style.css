@@ -1,4 +1,7 @@
-
+.modal-body form{
+    padding-right: 100px;
+    text-align: right;
+}
 
 #hero {
     
