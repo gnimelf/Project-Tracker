@@ -8,50 +8,49 @@ var projectTable = $("#project-table");
 $("#datepicker").datepicker();
 $("#project-type").selectmenu();
 
+var storedProjects = "";
+
 var projectList = [];
 
 var ProjectObj = {
-    "name" : "",
-    "type" : "",
-    "wage" : "",
-    "due_date" : "",
-    "day_left" : "",
-    "est_total_earned":""
+    "name": "",
+    "type": "",
+    "wage": "",
+    "due_date": "",
+    "day_left": "",
+    "est_total_earned": ""
 }
 
 // Clock
-setInterval(function() {
+setInterval(function () {
     clockEl.text(moment().format("hh:mm:ss a"));
 }, 1000);
 
 // Eventlistners
-datePickerEl.on("change", getDaysLeft );
+datePickerEl.on("change", getDaysLeft);
 newProjEl.on("submit", submitInfo);
 
 // Calculate the number of days left till due day
-function getDaysLeft(event){
-    var formatedDate = changeDateFormat(event.currentTarget.value);
-    var futureDate = moment(formatedDate);
-    var todaysDate = moment();
-    daysLeftEl[0].value = futureDate.diff(todaysDate, 'days') + 1; 
+function getDaysLeft(event) {
+    daysLeftEl[0].value = calcDaysLeft(event.currentTarget.value);
     calcEstTotalEarned();
     return;
 }
 
 // Change Date format (year-month-day)
-function changeDateFormat(date){
+function changeDateFormat(date) {
     var splitDate = date.split("/");
     return `${splitDate[2]}-${splitDate[0]}-${splitDate[1]}`
 }
 
 // Calculate the Est. Total Earned
-function calcEstTotalEarned (){
+function calcEstTotalEarned() {
     estTotalEarnedEl[0].value = daysLeftEl[0].value * (hourlyWageEl[0].value * 8);
     return
 }
 
 // Create proj obj and add it to project list
-function submitInfo(event){
+function submitInfo(event) {
     // Create new ProjObj and push to projectList array
     event.stopPropagation();
     var newProj = new Object(ProjectObj);
@@ -66,20 +65,62 @@ function submitInfo(event){
     printProjectData();
 }
 
-function printProjectData(){
-    
-    for (var i=0; i < projectList.length; i++) {
-        
-        var tableRow = `
+//populate date to page
+function printProjectData() {
+
+    // setup project header 
+    tableHeader =`
         <tr>
-        <td> ${projectList[i].name}</td>
-        <td> ${projectList[i].type}</td>
-        <td> ${projectList[i].wage}</td>
-        <td> ${projectList[i].due_date}</td>
-        <td> ${projectList[i].day_left}</td>
-        <td> $ ${projectList[i].est_total_earned}</td>
+            <th>Project Name</th>
+            <th>Project Type</th>
+            <th>Hour Wage</th>
+            <th>Due Date</th>
+            <th>Days left</th>
+            <th>Estimated Total Earned</th>
         </tr>
-        `
-        projectTable[0].innerHTML = projectTable[0].innerHTML + tableRow;
+    `;
+
+    var tableRows = "";
+
+     for (var i = 0; i < projectList.length; i++) {
+
+        var tableRow = `
+            <tr>
+                <td> ${projectList[i].name}</td>
+                <td> ${projectList[i].type}</td>
+                <td> ${projectList[i].wage}</td>
+                <td> ${projectList[i].due_date}</td>
+                <td> ${calcDaysLeft(projectList[i].due_date)}</td>
+                <td> $ ${projectList[i].est_total_earned}</td>
+            </tr>
+        `;
+            tableRows += tableRow;
+    }
+    console.log(tableRows)
+    projectTable[0].innerHTML = tableHeader + tableRows;
+    saveToLocalStorage();
+}
+
+function calcDaysLeft(dueDate) {
+    var formatedDate = changeDateFormat(dueDate);
+    var futureDate = moment(formatedDate);
+    var todaysDate = moment();
+    return futureDate.diff(todaysDate, 'days') + 1;
+}
+
+function saveToLocalStorage() {
+    if (projectList != []) {
+        storedProjects = JSON.stringify(projectList);
+        localStorage.setItem("save_projects", storedProjects)
     }
 }
+
+function loadFromLocalStorage() {
+    storedProjects = localStorage.getItem("save_projects");
+    if (storedProjects != null) {
+        projectList = JSON.parse(storedProjects);
+        printProjectData();
+    }
+}
+
+loadFromLocalStorage();
