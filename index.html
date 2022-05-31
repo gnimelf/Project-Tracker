@@ -36,34 +36,37 @@
                                 <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
                             </section>
                             <section class="modal-body">
-                                <form action="submit">
+                                <form id="new-proj">
                                     <fieldset>
-                                        <label for="project-name">Project Name:</label>
-                                        <input type="project-name" id="project-name"><br>
-                                        <label for="project-type">Project Type</label>
-                                        <select name="salutation" id="project-type">
-                                            <option disabled selected>Please pick one</option>
-                                            <option>HTML</option>
-                                            <option>CSS</option>
-                                            <option>JavaScript</option>
-                                            <option>Python</option>
-                                            <option>C++</option>
-                                            <option>Java</option>
-                                            <option>C#</option>
-                                        </select>
-                                        <label for="hourly-wage">Hourly Wage</label>
-                                        <input type="text" id="hourly-wage">
-                                        <p>Due Date: <input type="text" id="datepicker"></p>
-                                        <label for="days-left">Days until due:</label>
-                                        <p id="days-left">0</p><br>
-                                        <label for="est-total-earned">Est. Total Earned: $</label>
-                                        <p id="est-total-earned">0</p>
+                                        <section id="form-top">
+                                            <label for="project-name">Project Name:</label>
+                                            <input type="project-name" id="project-name"><br>
+                                            <label for="project-type">Project Type</label>
+                                            <select name="salutation" id="project-type">
+                                                <option disabled selected>Please pick one</option>
+                                                <option>HTML</option>
+                                                <option>CSS</option>
+                                                <option>JavaScript</option>
+                                                <option>Python</option>
+                                                <option>C++</option>
+                                                <option>Java</option>
+                                                <option>C#</option>
+                                            </select>
+                                            <label for="hourly-wage">Hourly Wage</label>
+                                            <input type="text" id="hourly-wage">
+                                            <p>Due Date: <input type="text" id="datepicker"></p>
+                                            <label for="days-left">Days until due:</label>
+                                            <input id="days-left" type="text" disabled value="0"><br>
+                                            <label for="est-total-earned">Est. Total Earned: $</label>
+                                            <input id="est-total-earned" type="text" disabled value="0">
+                                        </section>
+                                        <section class="modal-footer">
+                                            <button type="button" class="btn btn-secondary"
+                                                data-bs-dismiss="modal">Close</button>
+                                            <button type="submit" data-bs-dismiss="modal" class="btn btn-primary btn-success">Save changes</button>
+                                        </section>
                                     </fieldset>
                                 </form>
-                            </section>
-                            <section class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                <button type="submit" class="btn btn-primary">Save changes</button>
                             </section>
                         </section>
                     </section>
@@ -88,13 +91,3 @@
 </body>
 
 </html>
-
-
-
-<!-- <form action="submit">
-    <label for="project-name">Project Name:</label>
-    <input type="project-name" id="project-name"><br>
-    <label for="project-type">Project Type</label>
-    <input type="project-type" id="project-type"><br>
-    <p>Date: <input type="text" id="datepicker"></p>
-</form> -->

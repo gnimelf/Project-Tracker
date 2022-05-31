@@ -1,25 +1,38 @@
-var clock = $("#clock");
-var datePicker = $("#datepicker");
-var daysLeft = $("#days-left");
-var hourlyWage = $("#hourly-wage")
-var estTotalEarned = $("#est-total-earned");
+var clockEl = $("#clock");
+var datePickerEl = $("#datepicker");
+var daysLeftEl = $("#days-left");
+var hourlyWageEl = $("#hourly-wage")
+var estTotalEarnedEl = $("#est-total-earned");
+var newProjEl = $("#new-proj");
 $("#datepicker").datepicker();
 $("#project-type").selectmenu();
 
+var projectList = [];
+
+var ProjectObj = {
+    "name" : "",
+    "type" : "",
+    "wage" : "",
+    "due_date" : "",
+    "day_left" : "",
+    "est_total_earned":""
+}
+
 // Clock
 setInterval(function() {
-    clock.text(moment().format("hh:mm:ss a"));
+    clockEl.text(moment().format("hh:mm:ss a"));
 }, 1000);
 
 // Eventlistners
-datePicker.on("change", getDaysLeft )
+datePickerEl.on("change", getDaysLeft );
+newProjEl.on("submit", submitInfo);
 
 // Calculate the number of days left till due day
 function getDaysLeft(event){
     var formatedDate = changeDateFormat(event.currentTarget.value);
     var futureDate = moment(formatedDate);
     var todaysDate = moment();
-    daysLeft.text(futureDate.diff(todaysDate, 'days') + 1); 
+    daysLeftEl[0].value = futureDate.diff(todaysDate, 'days') + 1; 
     calcEstTotalEarned();
     return;
 }
@@ -32,7 +45,20 @@ function changeDateFormat(date){
 
 // Calculate the Est. Total Earned
 function calcEstTotalEarned (){
-   console.log(estTotalEarned[0].innerHTML = daysLeft[0].innerHTML * (hourlyWage[0].value * 8));
+    estTotalEarnedEl[0].value = daysLeftEl[0].value * (hourlyWageEl[0].value * 8);
     return
 }
 
+function submitInfo(event){
+    // Create new ProjObj and push to projectList array
+    event.stopPropagation();
+    var newProj = new Object(ProjectObj);
+    newProj.name = event.currentTarget[1].value;
+    newProj.type = event.currentTarget[2].value;
+    newProj.wage = event.currentTarget[3].value;
+    newProj.due_date = event.currentTarget[4].value;
+    newProj.day_left = event.currentTarget[5].value;
+    newProj.est_total_earned = event.currentTarget[6].value;
+    projectList.push(newProj);
+    console.log(projectList);
+}

@@ -6,12 +6,12 @@ body{
 }
 
 .modal-body form{
-    padding-right: 100px;
+    padding: 0 50px;
     text-align: right;
 }
 
 .instructcard{
-    margin-top: 30px;
+    margin-top: 50px;
 }
 
 .ui-selectmenu-menu{
@@ -19,15 +19,10 @@ body{
     z-index: 2001;
 }
 
-#days-left{
-    display: inline;
-    margin-left: 180px ;
+#form-top {
+    margin-right: 30px;
 }
 
-#est-total-earned {
-    display: inline;
-    margin-left: 178px;
-}
 
 #project-type-button {
     margin: 0;
