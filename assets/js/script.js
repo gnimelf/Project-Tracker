@@ -23,7 +23,7 @@ var ProjectObj = {
 
 // Clock
 setInterval(function () {
-    clockEl.text(moment().format("hh:mm:ss a"));
+    clockEl.text(moment().format("hh:mm:ss A") + " EST");
 }, 1000);
 
 // Eventlistners
