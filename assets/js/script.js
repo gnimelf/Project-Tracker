@@ -5,6 +5,8 @@ var hourlyWageEl = $("#hourly-wage")
 var estTotalEarnedEl = $("#est-total-earned");
 var newProjEl = $("#new-proj");
 var projectTable = $("#project-table");
+var removeRow = $(".remove-row");
+var tableRows = $(".project-table tr")
 $("#datepicker").datepicker();
 $("#project-type").selectmenu();
 
@@ -30,7 +32,8 @@ setInterval(function () {
 datePickerEl.on("change", getDaysLeft);
 newProjEl.on("submit", submitInfo);
 
-// Calculate the number of days left till due day
+
+// Handle datepicker change event
 function getDaysLeft(event) {
     daysLeftEl[0].value = calcDaysLeft(event.currentTarget.value);
     calcEstTotalEarned();
@@ -69,7 +72,7 @@ function submitInfo(event) {
 function printProjectData() {
 
     // setup project header 
-    tableHeader =`
+    tableHeader = `
         <tr>
             <th>Project Name</th>
             <th>Project Type</th>
@@ -82,25 +85,28 @@ function printProjectData() {
 
     var tableRows = "";
 
-     for (var i = 0; i < projectList.length; i++) {
+    for (var i = 0; i < projectList.length; i++) {
 
         var tableRow = `
-            <tr>
+            <tr id="tr${i}">
                 <td> ${projectList[i].name}</td>
                 <td> ${projectList[i].type}</td>
-                <td> ${projectList[i].wage}</td>
+                <td> $ ${projectList[i].wage}</td>
                 <td> ${projectList[i].due_date}</td>
                 <td> ${calcDaysLeft(projectList[i].due_date)}</td>
                 <td> $ ${projectList[i].est_total_earned}</td>
+                <td> <button class="btn btn-secondary btn-danger remove-row">Remove</button>
             </tr>
         `;
-            tableRows += tableRow;
+        tableRows += tableRow;
     }
-    console.log(tableRows)
     projectTable[0].innerHTML = tableHeader + tableRows;
+
+
     saveToLocalStorage();
 }
 
+// Calculate the number of days left till due day
 function calcDaysLeft(dueDate) {
     var formatedDate = changeDateFormat(dueDate);
     var futureDate = moment(formatedDate);
@@ -108,6 +114,7 @@ function calcDaysLeft(dueDate) {
     return futureDate.diff(todaysDate, 'days') + 1;
 }
 
+// Save to localstorage
 function saveToLocalStorage() {
     if (projectList != []) {
         storedProjects = JSON.stringify(projectList);
@@ -115,12 +122,35 @@ function saveToLocalStorage() {
     }
 }
 
+// Load from localstorage
 function loadFromLocalStorage() {
     storedProjects = localStorage.getItem("save_projects");
     if (storedProjects != null) {
         projectList = JSON.parse(storedProjects);
         printProjectData();
     }
+
+    // update selectors
+    removeRow = $(".remove-row");
+    tableRows = $("#project-table tr");
 }
 
+// remove row
+function removeThisRow(event) {
+    var arrayLocation = event.originalEvent.path[2].id.split("r")[1]
+    projectList.splice(arrayLocation, 1);
+    printProjectData();
+
+    // Refreash page
+    history.go(0);
+
+    // update selectors
+    removeRow = $(".remove-row");
+    tableRows = $("#project-table tr");
+}
+
+// Populate screen with localstorage content
 loadFromLocalStorage();
+
+removeRow.on("click", removeThisRow);
+
