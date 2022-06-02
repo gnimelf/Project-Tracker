@@ -141,7 +141,7 @@ function removeThisRow(event) {
     projectList.splice(arrayLocation, 1);
     printProjectData();
 
-    // Refreash page
+    // Refresh page
     history.go(0);
 
     // update selectors
