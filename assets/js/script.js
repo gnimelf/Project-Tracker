@@ -137,7 +137,7 @@ function loadFromLocalStorage() {
 
 // remove row
 function removeThisRow(event) {
-    var arrayLocation = event.originalEvent.path[2].id.split("r")[1]
+    var arrayLocation = event.target.parentElement.parentElement.id.split("r")[1]
     projectList.splice(arrayLocation, 1);
     printProjectData();
 
